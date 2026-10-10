@@ -1,0 +1,10 @@
+@import "tailwindcss";
+
+#root {
+  width: 100%;
+  min-width: 310px;
+}
+
+body, html {
+  scrollbar-width: thin;
+}
