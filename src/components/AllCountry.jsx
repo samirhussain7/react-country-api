@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
+import {FaXmark} from "react-icons/fa6"
 import useDebounce from "../hooks/useDebounce"
 
 const AllCountry = ({ theme }) => {
@@ -16,8 +17,6 @@ const AllCountry = ({ theme }) => {
         setData(data);
       } catch (err) {
         console.log("Some Error: ", err);
-      } finally {
-        console.log("Fetching complete!");
       }
     };
 
@@ -32,14 +31,15 @@ const AllCountry = ({ theme }) => {
   }, [data, debouncedSearch]);
 
   return (
-    <>
-      <div className="w-full max-w-325 mx-auto px-2">
+    <section className="max-w-325 w-full mx-auto">
+      {/* Search Input */}
+      <div className="w-full px-10 sm:px-0 my-4">
         <div className="relative">
           <input
             onChange={(e) => {
               setInpVal(e.target.value);
             }}
-            className={`border-2 my-4 rounded p-2 pr-6 lg:pr-30 ${theme ? "border-gray-400" : "border-gray-400"}`}
+            className={`rounded p-2 pl-4 pr-6 lg:pr-30 ${theme ? "dark-elem" : "light-elem"}`}
             type="text"
             placeholder="Search any countries."
             name="search"
@@ -48,33 +48,37 @@ const AllCountry = ({ theme }) => {
           />
           {inpVal && (
             <button
-              onClick={() => setInpVal("")}l
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
+              onClick={() => setInpVal("")}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-600"
             >
-              X
+              <FaXmark />
             </button>
           )}
-          {/* <label className="absolute top-1/2 left-3 -translate-y-1/2 text-sm opacity-60" htmlFor="search">Search any countries.</label> */}
         </div>
       </div>
-      <section className="max-w-[1300px] w-full mx-auto flex justify-start flex-wrap gap-3 p-2 lg:p-0">
+
+      {/* Country Cards */}
+      <section className="flex justify-center lg:justify-start mx-auto flex-wrap sm:gap-8 gap-10 p-2 lg:p-0">
         {filteredCountries?.length > 0 ? (
           filteredCountries?.map((item, index) => {
             return (
               <div
                 key={index}
-                className={`w-full ${filteredCountries.length < 5 ? '' : 'mx-auto'} sm:max-w-62 overflow-hidden rounded-md ${theme ? "bg-gray-800" : "bg-gray-100"}`}
+                className={`w-[90%] sm:max-w-72 overflow-hidden rounded-md ${theme ? "dark-elem" : "light-elem"}`}
               >
-                <Link to={`/country/${item.name}`} className="w-full h-[200px]">
+                <Link to={`/country/${item.name}`}>
                   <img
                     src={item.flags.png}
                     alt={item.name.common}
-                    className="w-full h-[200px] sm:h-[150px] object-cover"
+                    className="w-full h-52.5 md:h-42.5 object-cover object-center"
                     loading="lazy"
                   />
                 </Link>
-                <div className="p-2 px-4">
+                <div className="p-2 px-4 pb-8">
                   <h2 className="text-lg font-semibold mt-4">{item.name}</h2>
+                  <p>Population: <span>{item.population}</span></p>
+                  <p>Region: <span>{item.region}</span></p>
+                  <p>Capital: <span>{item.capital}</span></p>
                 </div>
               </div>
             );
@@ -85,7 +89,7 @@ const AllCountry = ({ theme }) => {
           </div>
         )}
       </section>
-    </>
+    </section>
   );
 };
 
