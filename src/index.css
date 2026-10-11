@@ -8,3 +8,25 @@
 body, html {
   scrollbar-width: thin;
 }
+
+.dark {
+  background-color: hsl(207, 26%, 17%);
+  color: hsl(0, 0%, 100%);
+}
+
+.light {
+  background-color: hsl(0, 0%, 99%);
+  color: hsl(200, 15%, 8%);
+}
+
+.dark-elem {
+  background-color: #2b3945;
+  color: hsl(0, 100%, 100%);
+  box-shadow: 0 0 10px 10px #222d36;
+}
+
+.light-elem {
+  background-color: hsl(0, 100%, 100%);
+  color: hsl(209, 23%, 22%);
+  box-shadow: 0 0 10px 0 #e1e9ef;
+}
